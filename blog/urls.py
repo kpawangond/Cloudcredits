@@ -19,16 +19,16 @@ urlpatterns = [
     path('dashboard/',include('dashboards.urls')),
 
 ]
-#Serve media files when DEBUG=False (for local testing only)
+
 if not settings.DEBUG:
     urlpatterns += [
+        re_path(r'^static/(?P<path>.*)$', serve, {
+            'document_root': settings.STATIC_ROOT,
+        }),
         re_path(r'^media/(?P<path>.*)$', serve, {
             'document_root': settings.MEDIA_ROOT,
         }),
     ]
 
-# ✅ Serve media files normally in development
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# ✅ Custom 404 error handler
+# page 404 error handler
 handler404 = 'dashboards.views.custom_404_view'

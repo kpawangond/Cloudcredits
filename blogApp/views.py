@@ -4,7 +4,6 @@ from .models import Blog, Category,Comment
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 
-
 def posts_by_category(request, category_id):
     category = Category.objects.all()
     selected_category = get_object_or_404(Category, id=category_id)

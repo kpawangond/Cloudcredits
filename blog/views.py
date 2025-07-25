@@ -50,25 +50,6 @@ def login_view(request):
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
-# def login_view(request):
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             user = authenticate(request, username=username, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 # Redirect based on user type
-#                 if user.is_staff or user.is_superuser:
-#                     return redirect('/dashboard/')
-#                 else:
-#                     return redirect('home')
-#             else:
-#                 messages.error(request, "Invalid username or password")
-#     else:
-#         form = LoginForm()
-#     return render(request, 'login.html', {'form': form})
 #logout_view 
 def logout_view(request):
     logout(request) 
