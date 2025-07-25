@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="py-3">
+    <div class="container">
+      <h3 class="fs-6 text-secondary mb-2 text-uppercase text-center">Contact Us</h3>
+      <hr class="border-dark-subtle">
+      <div class="row gy-lg-0 align-items-lg-center">
+        <div class="col-12 col-lg-6 col-xl-5">
+          <div class="card">
+            <img class="card-img-top" src="https://relocatestressfree.com/wp-content/uploads/2023/03/istockphoto-1372286955-170667a.jpg" alt="Card image cap" style="height:410px;">
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 col-xl-7 py-3">
+          <div class="row justify-content-xl-center">
+              <div class="bg-white border rounded p-3">
+                <form method="post" action="\contact\">
+                  {% csrf_token %}
+                    <div  data-mdb-input-init class="form-outline mb-4>
+                      <label class="form-label">Name</label>
+                      <input type="text"  name="name" class="form-control" />
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label">Email address</label>
+                        <input type="email" name="email" class="form-control" />
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label">Message</label>
+                      <textarea class="form-control" rows="4" name="textarea"></textarea>
+                    </div>
+                    <input type="Submit" class="btn btn-primary btn-block mb-4" value="Send">
+                  </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+{% endblock body %}

@@ -1,0 +1,120 @@
+{% extends 'dashboard/admin_base.html' %}
+{% block body  %}
+{% load static %}
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section dashboard">
+      <div class="row">
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+            <!-- Category Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total <span>| Category</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="background-color: #e0d7ff; color: #6f42c1; font-size: 24px;">
+                      <i class="bi bi-tags-fill"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{catagory_counts}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Category Card -->
+
+            <!-- Post Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total <span>| Post</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" style="background-color: #d1f2eb; color: #17a2b8; font-size: 24px;">
+                      <i class="bi bi-file-earmark-text-fill"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{post_counts}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End Post Card -->
+
+            <!-- Start Users count -->
+            <div class="col-xxl-4 col-xl-6">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total <span>| Users</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{user_counts}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End user count-->
+            <!-- comment section-->
+            <div class="col-xxl-4 col-xl-6">
+              <div class="card info-card customers-card">
+                <div class="card-body">
+                  <h5 class="card-title">Total <span>| Comment</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center" >
+                      <i class="bi bi-chat"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>{{comment_conunts}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <!-- End Users comment -->
+          </div>
+        </div><!-- End Left side columns -->
+       <!-- Right side columns -->
+      <div class="col-lg-4 col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">Latest <span>| Post</span></h5>
+          <ul class="list-group list-group-flush">
+            {% for post in latest_posts %}
+              <li class="list-group-item">
+                <div class="d-flex">
+                  <img src="{{ post.image.url }}" alt="{{ post.title }}" class="me-3 rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                  <div class="flex-grow-1">
+                     <a href="{% url 'detail_post' post.id %}" class="text-decoration-none fw-semibold d-block mb-1">
+                      <p class="mb-1 text-muted small">{{ post.description|truncatechars:50|safe }}</p>
+                    </a> 
+                    <small class="text-muted">
+                      <i class="bi bi-clock"></i> {{ post.created_at|timesince }} ago
+                    </small>
+                  </div>
+                </div>
+              </li>
+            {% empty %}
+              <li class="list-group-item">No latest posts available.</li>
+            {% endfor %}
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
+  </main><!-- End #main -->
+{% endblock  %}

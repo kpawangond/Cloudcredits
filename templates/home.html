@@ -1,0 +1,93 @@
+{% extends "Base/base.html" %}
+
+{% block body %}
+  {% for featured_post in featured_posts %}
+    {% if forloop.first %}
+  <header class="text-white hero-overlay d-flex align-items-center" style="background: url('{{ featured_post.image.url }}') center/cover no-repeat; height: 400px">
+    <div class="container">
+      <div class="col-md-6">
+        <h1 class="display-4 fw-bold">{{ featured_post.title }}</h1>
+        <p class="lead">{{ featured_post.description|truncatechars:120|safe }}</p>
+        <a href="{% url 'detail_blog' featured_post.slug %}" class="btn btn-light btn-lg">Continue Reading</a>
+      </div>
+    </div>
+  </header>
+    {% endif %}
+  {% endfor %}
+
+{% if featured_posts %}
+<hr>
+<section class="py-2">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- RIGHT SIDE: FEATURED POSTS -->
+      <div class="col-lg-9 col-md-8">
+        <div class="row">
+          {% for post in featured_posts %}
+            {% if forloop.counter < 7 %}
+            <div class="col-xl-4 col-md-6 py-1">
+              <div class="card h-100 border border-secondary shadow-sm">
+
+                <!-- Image -->
+                <div class="image-hover-wrapper" style="height: 200px; overflow: hidden;">
+                  <a href="{{ post.slug }}">
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 100%; object-fit: cover;">
+                  </a>
+                </div>
+
+                <!-- Body -->
+                <div class="card-body">
+                  <h5 class="card-title">{{ post.title }}</h5>
+                  <p class="card-text text-muted">{{ post.description|truncatechars:100|safe }}</p>
+                  <a href="{{ post.slug }}" class="btn btn-outline-primary btn-sm">Read More</a>
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer text-muted small">
+                  <i class="fa fa-calendar"></i> {{ post.created_at|timesince }} ago
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <!-- View All Button -->
+        <div class="text-center mt-4">
+          <a href="{% url 'view_all_post' %}" class="btn btn-primary btn-lg rounded-pill">View All Posts</a>
+        </div>
+      </div>
+      <!-- LEFT SIDE: RECENT POSTS -->
+      <div class="col-lg-3 col-md-4">
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <i class="fa fa-clock-o"></i> Latest Posts
+          </div>
+          <ul class="list-group list-group-flush">
+            {% for post in latest_posts %}
+              <li class="list-group-item">
+                <div class="d-flex">
+                  <img src="{{ post.image.url }}" alt="{{ post.title }}" class="me-3 rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                  <div class="flex-grow-1">
+                     <a href="{% url 'detail_blog' post.slug %}" class="text-decoration-none fw-semibold d-block mb-1">
+                      <p class="mb-1 text-muted small">{{ post.description|truncatechars:50|safe }}</p>
+                    </a> 
+                    <small class="text-muted">
+                      <i class="fa fa-calendar"></i> {{ post.created_at|timesince }} ago
+                    </small>
+                  </div>
+                </div>
+              </li>
+            {% empty %}
+              <li class="list-group-item">No latest posts available.</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock body %}
+

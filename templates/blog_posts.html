@@ -1,0 +1,45 @@
+{% extends "Base/base.html" %}
+
+{% block body %}
+<hr>
+<section class="py-2">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- RIGHT SIDE: FEATURED POSTS -->
+      <div class="col-lg-12 col-md-12">
+        <div class="row">
+          {% for post in all_posts %}
+            <div class="col-xl-3 col-md-6 py-1">
+              <div class="card h-100 border border-secondary shadow-sm">
+
+                <!-- Image -->
+                <div class="image-hover-wrapper" style="height: 200px; overflow: hidden;">
+                  <a href="{{ post.slug }}">
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 100%; object-fit: cover;">
+                  </a>
+                </div>
+
+                <!-- Body -->
+                <div class="card-body">
+                  <h5 class="card-title">{{ post.title }}</h5>
+                  <p class="card-text text-muted">{{ post.description|truncatechars:100|safe }}</p>
+                  <a href="{{ post.slug }}" class="btn btn-outline-primary btn-sm">Read More</a>
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer text-muted small">
+                  <i class="fa fa-calendar"></i> {{ post.created_at|timesince }} ago
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <!-- View All Button -->
+        <div class="text-center mt-4">
+          <a href="{% url 'view_all_post' %}" class="btn btn-primary btn-lg rounded-pill">View All Posts</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}      

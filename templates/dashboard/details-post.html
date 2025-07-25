@@ -1,0 +1,65 @@
+{% extends 'dashboard/admin_base.html' %}
+
+{% block body %}
+<main id="main" class="main">
+  <section class="section">
+    <div class="container">
+      <div class="card shadow-lg border-0 rounded-4 p-4">
+
+        <!-- Post Image at Top -->
+        <div class="text-center mb-4">
+          {% if post_details.image %}
+            <img src="{{ post_details.image.url }}"
+                 class="rounded shadow-sm"
+                 style="width:100%;max-width:100%; height:350px; object-fit: cover;"
+                 alt="{{ post_details.title }}">
+          {% else %}
+            <img src="/static/img/no-image.png"
+                 class="img-fluid rounded-circle"
+                 style="max-width: 300px;"
+                 alt="No Image">
+          {% endif %}
+        </div>
+
+        <!-- Post Details Below -->
+        <div class="text-start">
+          <h2 class="fw-bold mb-3 text-uppercase text-center">{{ post_details.title }}</h2>
+
+          {% if post_details.category %}
+            <p><i class="bi bi-tags-fill me-2 text-secondary"></i>
+              <strong>Category:</strong> {{ post_details.category }}</p>
+          {% endif %}
+
+          {% if post_details.author %}
+            <p><i class="bi bi-person me-2 text-secondary"></i>
+              <strong>Author:</strong> {{ post_details.author }}</p>
+          {% endif %}
+
+          {% if post_details.content %}
+            <p><i class="bi bi-file-earmark-text me-2 text-secondary"></i>
+              <strong>Content:</strong> {{ post_details.content }}</p>
+          {% endif %}
+
+          {% if post_details.description %}
+            <p><i class="bi bi-info-circle me-2 text-secondary"></i>
+              <strong>Description:</strong> {{ post_details.description }}</p>
+          {% endif %}
+
+          <p><i class="bi bi-calendar-check me-2 text-secondary"></i>
+            <strong>Created:</strong> {{ post_details.created_at|date:"d M Y, h:i A" }}</p>
+
+          <p><i class="bi bi-clock-history me-2 text-secondary"></i>
+            <strong>Last Updated:</strong> {{ post_details.updated_at|date:"d M Y, h:i A" }}</p>
+
+          <div class="mt-4 text-center">
+            <a href="{% url 'post_view' %}" class="btn btn-outline-primary">
+              <i class="bi bi-arrow-left-circle me-1"></i> Back
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
